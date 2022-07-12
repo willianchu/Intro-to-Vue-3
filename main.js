@@ -2,14 +2,12 @@
 const app = Vue.createApp({
   data() {
     return {
+      cart: 0,
       product: 'F150-Lightning',
-      description: "The best electric truck in the world",
+      brand: 'Ford',
       image: './assets/images/F150Blue.jpg',
-      url: 'https://www.ford.ca/trucks/f150/f150-lightning/',
-      inStock: true,
-      inventory: 68,
-      onSale: true,
-      navColor: 'red',
+      inStock: false,
+      description: "The best electric truck in the world",
       details: ['signature front lightning', "360° camera", "Pro Power Onboard 9.6Kw"],
       variants: [
         { id: 2022, color: 'red', image: './assets/images/F150Red.jpg' },
@@ -20,7 +18,10 @@ const app = Vue.createApp({
         { id: 20232, model: 'Lariat'},
         { id: 20233, model: 'Platinum'}
       ],
-      cart: 0,
+      url: 'https://www.ford.ca/trucks/f150/f150-lightning/',
+      inventory: 20,
+      onSale: true,
+      navBgColor: 'blue',
     }
   },
   methods: {
@@ -42,6 +43,11 @@ const app = Vue.createApp({
     },
     updateImage(variantImage) {
       this.image = variantImage
+      if (variantImage === './assets/images/F150Red.jpg') {
+        this.navBgColor = 'red'
+      } else {
+        this.navBgColor = 'blue'
+      }
     }
   }
 })
