@@ -9,76 +9,20 @@
     <script src="https://unpkg.com/vue@3"></script>
   </head>
   <body>
+    
     <div id="app">
-      <div :class="navBgColor" >
-        <div class="cart">Cart ({{ cart }})</div>
-      </div>
-            
-
-      <div class="product-display">
-        <div class="product-container">
-          <div class="product-image">
-            <img
-              :class="{ 'out-of-stock-img': !inStock }" 
-              :title="description"
-              :src="image"
-            >
-          </div>
-
-
-          <div>  
-            <h1>{{ title }}</h1>
-            
-            <div class="product-info">
-
-              <p v-if="inventory >10">In Stock</p>
-              <p v-else-if="inventory <= 10 && inventory >5">Almost sold out!</p>
-              <p v-else>Out of Stock</p>
-
-
-              <ul>
-                <li v-for="detail in details" :key="detail">{{ detail }}</li>
-              </ul>
-
-              <div 
-                v-for="(variant, index) in variants" 
-                :key="variant.id" 
-                @mouseover="updateVariant(index)" 
-                class="color-circle" 
-                :style="{ backgroundColor: variant.color }">
-              </div>
-
-              <li v-for="model in models" :key="model.id">{{model.model}}</li>
-
-              <div class="flex-button">
-                <button 
-                  class="button" 
-                  :class="{ disabledButton: !inStock }" 
-                  :disabled="!inStock" 
-                  @click="addToCart">
-                  Add
-                </button>
-  
-                <button
-                  class="button"
-                  :class="{ disabledButton: !inStock }" 
-                  :disabled="!inStock" 
-                  @click="removeFromCart">
-                    Remove
-                </button>
-              </div>
-
-              
-            </div>
-            <a :href="url">Ford Lightning Brochure</a>
-          </div>
-        </div>
-      </div>
-
+      <div class="nav-bar"></div>
+    
+      <div class="cart">Cart({{ cart }})</div>
+      <product-display></product-display>
+      <product-display></product-display>
+      <product-display></product-display>
     </div>
 
     <!-- Import Js -->
     <script src="./main.js"></script>
+    <!-- Import Components -->
+    <script src="./components/ProductDisplay.js"></script>
 
     <!-- Mount App -->
     <script>
