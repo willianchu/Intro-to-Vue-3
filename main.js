@@ -5,13 +5,11 @@ const app = Vue.createApp({
       cart: 0,
       product: 'F150-Lightning',
       brand: 'Ford',
-      image: './assets/images/F150Blue.jpg',
-      inStock: false,
       description: "The best electric truck in the world",
       details: ['signature front lightning', "360° camera", "Pro Power Onboard 9.6Kw"],
       variants: [
-        { id: 2022, color: 'red', image: './assets/images/F150Red.jpg' },
-        { id: 2023, color: 'blue', image: './assets/images/F150Blue.jpg' },
+        { id: 2022, color: 'red', image: './assets/images/F150Red.jpg', quantity: 0 },
+        { id: 2023, color: 'blue', image: './assets/images/F150Blue.jpg', quantity: 11 },
       ],
       models: [
         { id: 20231, model: 'XLT'},
@@ -19,10 +17,24 @@ const app = Vue.createApp({
         { id: 20233, model: 'Platinum'}
       ],
       url: 'https://www.ford.ca/trucks/f150/f150-lightning/',
-      inventory: 20,
+      
       onSale: true,
-      navBgColor: 'blue',
+      selectedVariant: 0,
     }
+  },
+  computed: {
+    title() {
+      return this.brand + ' ' + this.product + ' ' + (this.inStock? 'In Stock': 'Sold Out')
+    },
+    inStock() {
+      return this.variants[this.selectedVariant].quantity > 0
+    },
+    image() {
+      return this.variants[this.selectedVariant].image
+    },
+    navBgColor() {
+      return this.selectedVariant === 0 ? 'red' : 'blue'
+    },
   },
   methods: {
     addToCart() {
@@ -48,7 +60,10 @@ const app = Vue.createApp({
       } else {
         this.navBgColor = 'blue'
       }
-    }
+    },
+    updateVariant(index) {
+      this.selectedVariant = index
+    },
   }
 })
 

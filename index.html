@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Vue Mastery</title>
+    <title>Ford Electric Power</title>
     <!-- Import Styles -->
     <link rel="stylesheet" href="./assets/styles.css" />
     <!-- Import Vue.js -->
@@ -10,9 +10,10 @@
   </head>
   <body>
     <div id="app">
-      <div :class="navBgColor" ></div>
+      <div :class="navBgColor" >
+        <div class="cart">Cart ({{ cart }})</div>
+      </div>
             
-      <div class="cart">Cart ({{ cart }})</div>
 
       <div class="product-display">
         <div class="product-container">
@@ -25,48 +26,51 @@
           </div>
 
 
-
-          <div class="product-info">
-            <h1>{{ brand + ' ' + product }}</h1>
-
-            <p v-if="inventory >10">In Stock</p>
-            <p v-else-if="inventory <= 10 && inventory >5">Almost sold out!</p>
-            <p v-else>Out of Stock</p>
-
-            <p v-show="onSale">On Sale!</p>
-
-            <ul>
-              <li v-for="detail in details" :key="detail">{{ detail }}</li>
-            </ul>
-
-            <div 
-              v-for="variant in variants" 
-              :key="variant.id" 
-              @mouseover="updateImage(variant.image)" 
-              class="color-circle" 
-              :style="{ backgroundColor: variant.color }">
-            </div>
-
-            <li v-for="model in models" :key="model.id">{{model.model}}</li>
-
-            <button 
-              class="button" 
-              :class="{ disabledButton: !inStock }" 
-              :disabled="!inStock" 
-              @click="addToCart">
-              Add to Cart
-            </button>
-
-            <button
-              class="button"
-              :class="{ disabledButton: !inStock }" 
-              :disabled="!inStock" 
-              @click="removeFromCart">
-                Remove
-            </button>
-
-            <a :href="url">Ford Lightning Brochure</a>
+          <div>  
+            <h1>{{ title }}</h1>
             
+            <div class="product-info">
+
+              <p v-if="inventory >10">In Stock</p>
+              <p v-else-if="inventory <= 10 && inventory >5">Almost sold out!</p>
+              <p v-else>Out of Stock</p>
+
+
+              <ul>
+                <li v-for="detail in details" :key="detail">{{ detail }}</li>
+              </ul>
+
+              <div 
+                v-for="(variant, index) in variants" 
+                :key="variant.id" 
+                @mouseover="updateVariant(index)" 
+                class="color-circle" 
+                :style="{ backgroundColor: variant.color }">
+              </div>
+
+              <li v-for="model in models" :key="model.id">{{model.model}}</li>
+
+              <div class="flex-button">
+                <button 
+                  class="button" 
+                  :class="{ disabledButton: !inStock }" 
+                  :disabled="!inStock" 
+                  @click="addToCart">
+                  Add
+                </button>
+  
+                <button
+                  class="button"
+                  :class="{ disabledButton: !inStock }" 
+                  :disabled="!inStock" 
+                  @click="removeFromCart">
+                    Remove
+                </button>
+              </div>
+
+              
+            </div>
+            <a :href="url">Ford Lightning Brochure</a>
           </div>
         </div>
       </div>
