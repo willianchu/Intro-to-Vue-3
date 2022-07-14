@@ -20,9 +20,11 @@ app.component('product-display', {
 
         <p>Shipping: {{ shipping }}</p>
         
-        <!-- solution -->
+        
         <product-details :details="details"></product-details>
-        <!-- solution -->
+        <ul>
+          <li v-for="detail in details">{{ detail }}</li>
+        </ul>
 
         <div 
           v-for="(variant, index) in variants" 
@@ -39,6 +41,15 @@ app.component('product-display', {
           v-on:click="addToCart">
           Add to Cart
         </button>
+
+        <button 
+          class="button" 
+          :class="{ disabledButton: !inStock }" 
+          :disabled="!inStock" 
+          v-on:click="removeFromCart">
+          Remove from Cart
+        </button>
+
       </div>
     </div>
   </div>`,
@@ -47,16 +58,19 @@ app.component('product-display', {
         product: 'F150 Lightning',
         brand: 'Ford',
         selectedVariant: 0,
-        details: ['50% cotton', '30% wool', '20% polyester'],
+        details: ['360 camera', 'Signature Front Line', 'Pro Power 9.6Kwh'],
         variants: [
           { id: 2234, color: 'red', image: './assets/images/F150Red.jpg', quantity: 12 },
-          { id: 2235, color: 'blue', image: './assets/images/F150Blue.jpg', quantity: 0 },
+          { id: 2235, color: 'blue', image: './assets/images/F150Blue.jpg', quantity: 1 },
         ]
     }
   },
   methods: {
       addToCart() {
-          this.cart += 1
+        this.$emit('add-to-cart', this.variants[this.selectedVariant].id)
+      },
+      removeFromCart() {
+        this.$emit('remove-from-cart', this.variants[this.selectedVariant].id)
       },
       updateVariant(index) {
           this.selectedVariant = index
@@ -76,7 +90,7 @@ app.component('product-display', {
         if (this.premium) {
           return 'Free'
         }
-        return 2.99
+        return 2000.99
       }
   }
 })
