@@ -33,23 +33,23 @@ app.component('product-display', {
           class="color-circle" 
           :style="{ backgroundColor: variant.color }">
         </div>
-        
-        <button 
-          class="button" 
-          :class="{ disabledButton: !inStock }" 
-          :disabled="!inStock" 
-          v-on:click="addToCart">
-          Add to Cart
-        </button>
+        <div>
+          <button 
+            class="button" 
+            :class="{ disabledButton: !inStock }" 
+            :disabled="!inStock" 
+            v-on:click="addToCart">
+            Add
+          </button>
 
-        <button 
-          class="button" 
-          :class="{ disabledButton: !inStock }" 
-          :disabled="!inStock" 
-          v-on:click="removeFromCart">
-          Remove from Cart
-        </button>
-
+          <button 
+            class="button" 
+            :class="{ disabledButton: !inStock }" 
+            :disabled="!inStock" 
+            v-on:click="removeFromCart">
+            Remove
+          </button>
+        </div>
       </div>
     </div>
   </div>`,
